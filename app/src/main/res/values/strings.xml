@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Palimu app</string>
+    <string name="title_principal">Bienvenido a Palín App</string>
+    <string name="sub_title_principal">El lugar donde arrendarás tu cancha de juego favorita.</string>
+    <string name="btn_ingresar_correo">Continuar con Correo electrónico</string>
+    <string name="sin_cuenta">¿No tienes una cuenta?</string>
+    <string name="olvido_contraseña">¿Olvidaste tu contraseña?</string>
+    <string name="btn_sin_cuenta">Registrate</string>
+    <string name="txt_correo">Correo eléctronico</string>
+    <string name="txt_password">Contraseña</string>
+    <string name="txt_requerit">Requerido *</string>
+    <string name="title_iniciar_sesion">Inicia sesión en Palín</string>
+    <string name="txt_iniciar_sesion">Iniciar sesión</string>
+
+
+</resources>
