@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "273359887901",
+    "project_id": "palimu-app",
+    "storage_bucket": "palimu-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273359887901:android:1174a70ad766863177b0f4",
+        "android_client_info": {
+          "package_name": "com.example.palimuapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "273359887901-lh477qn4dkpddi737e86osrlr73meo5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwcE29Vo3ppzhdAZvqVxFOVoK06R7Kh1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "273359887901-lh477qn4dkpddi737e86osrlr73meo5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

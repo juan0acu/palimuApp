@@ -8,8 +8,12 @@ import android.text.TextWatcher
 import android.widget.Toast
 import androidx.core.util.PatternsCompat
 import com.example.palimuapp.databinding.ActivityLoginImboxBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginImboxActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
 
     private lateinit var binding: ActivityLoginImboxBinding
     /* Todo lo comentado es lo que se ahorra con el binding
@@ -25,8 +29,22 @@ class LoginImboxActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginImboxBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        auth = Firebase.auth
         //initComponents()
         initListener()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val userLogeado = auth.currentUser
+        if (userLogeado!=null){
+            reload()
+        }
+    }
+
+    private fun reload() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 
     /*private fun initComponents() {
@@ -58,27 +76,41 @@ class LoginImboxActivity : AppCompatActivity() {
         return if (mail.isEmpty()) {
             binding.txtInputLayout1.helperText = "Campo correo vacío"
             false
-        } else if (mail == "juan@gmail.com") {
-            passwordValidator(binding.txtPassword.text.toString())
-        } else {
-            Toast.makeText(this, "Correo invalido", Toast.LENGTH_SHORT).show()
-            false
+        } else  {
+            passwordValidator(mail,binding.txtPassword.text.toString())
+            true
         }
     }
 
-    private fun passwordValidator(pass: String): Boolean {
+    private fun passwordValidator(email:String,pass: String): Boolean {
         return if (pass.isEmpty()) {
             binding.txtInputLayout1.helperText = "Campo contraseña vacío"
             false
-        } else if (pass == "123456") {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+        } else  {
+            firebaseValidator(email,pass)
             true
-        } else {
-            Toast.makeText(this, "Contraseña invalida", Toast.LENGTH_SHORT).show()
-            false
         }
 
+    }
+
+    private fun firebaseValidator(email:String,pass:String){
+        auth.signInWithEmailAndPassword(email,pass).addOnCompleteListener {
+            if (it.isSuccessful){
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+            }else{
+                val errorCode = it.exception?.localizedMessage
+                when(errorCode){
+                    "There is no user record corresponding to this identifier. The user may have been deleted."->{
+                        Toast.makeText(this, "Correo no existe en la bd de datos", Toast.LENGTH_SHORT).show()
+                    }
+                    "The password is invalid or the user does not have a password." -> {
+                        Toast.makeText(this, "Contraseña invalida", Toast.LENGTH_SHORT).show()
+                }
+
+                }
+            }
+        }
     }
 
     private fun realFormartMailValidator() {
